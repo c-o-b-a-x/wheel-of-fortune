@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wheel of Fortune</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <!-- LEFT SIDE UI -->
+      <div class="left-panel">
+        <h1>🎡 Wheel of Fortune</h1>
+
+        <div class="scoreboard"></div>
+
+        <div class="category"></div>
+        <div class="worddisplay"></div>
+
+        <div class="action-buttons">
+          <button id="buy-vowel" class="action-btn">BUY A VOWEL ($250)</button>
+          <button id="solve" class="action-btn">SOLVE PUZZLE</button>
+        </div>
+
+        <div class="letter-buttons"></div>
+      </div>
+
+      <!-- RIGHT SIDE WHEEL -->
+      <div class="wheel-wrapper">
+        <div class="pointer">▼</div>
+
+        <div class="wheel-container">
+          <svg id="wheel" width="720" height="720"></svg>
+          <div class="labels"></div>
+        </div>
+
+        <button id="spin">SPIN</button>
+      </div>
+    </div>
+    <audio id="theme-audio" loop>
+      <source
+        src="assets/Wheel of Fortune Theme Song (2017-2021).mp3"
+        type="audio/mpeg"
+      />
+      Your browser does not support the audio element.
+    </audio>
+
+    <button id="music-toggle" title="Toggle Theme Music">🔊</button>
+    <script src="script.js"></script>
+  </body>
+</html>
