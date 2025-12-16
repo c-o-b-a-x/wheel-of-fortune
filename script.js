@@ -271,11 +271,11 @@ function generateLetterButtons() {
 }
 
 function enableConsonantButtons() {
-  if (vowels.includes(letter)) btn.disabled = true;
-
   const buttons = letterButtonsContainer.querySelectorAll(".guess-btn");
+
   buttons.forEach((btn) => {
     const letter = btn.textContent;
+
     if (!vowels.includes(letter) && !guessedLetters.includes(letter)) {
       btn.disabled = false;
     }
@@ -284,8 +284,10 @@ function enableConsonantButtons() {
 
 function enableVowelButtons() {
   const buttons = letterButtonsContainer.querySelectorAll(".guess-btn");
+
   buttons.forEach((btn) => {
     const letter = btn.textContent;
+
     if (vowels.includes(letter) && !guessedLetters.includes(letter)) {
       btn.disabled = false;
     }
