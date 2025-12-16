@@ -176,6 +176,8 @@ if (solveButton) {
     if (!answer) return;
 
     if (answer.toUpperCase() === currentWord) {
+      roundScore += 1000;
+
       playerScores[currentPlayer] += roundScore;
       alert(
         `🎉 Correct! Player ${
