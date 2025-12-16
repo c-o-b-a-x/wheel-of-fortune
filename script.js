@@ -62,7 +62,6 @@ const labels = [
   "$650",
 ];
 
-// FIX: Convert prompt result to number
 let player_count = parseInt(prompt("how many people are playing:")) || 3;
 
 const worddisplay = document.querySelector(".worddisplay");
@@ -136,7 +135,6 @@ spin.addEventListener("click", () => {
     isSpinning = false;
 
     if (result === "BANKRUPT") {
-      // FIX: Don't add to player score, just reset round score
       roundScore = 0;
       alert("BANKRUPT! You lose all money from this round.");
       nextPlayer();
@@ -230,10 +228,6 @@ function startGame() {
         .split(" ")
         .map((word) => word.split("").map((ch) => "_"));
 
-      displayWord = currentWord.split("").map((ch) => {
-        if (letters.includes(ch)) return "_";
-        return ch;
-      });
       categoryDisplay.textContent =
         "CATEGORY: " + selectedCategory.toUpperCase();
       updateWordDisplay();
@@ -246,12 +240,10 @@ function startGame() {
 }
 
 function updateWordDisplay() {
-  // join letters in a word with no space, join words with 5 spaces between
   worddisplay.textContent = displayWord
-    .map((wordArr) => wordArr.join("")) // letters in a word together
+    .map((wordArr) => wordArr.join(""))
     .join("     "); // space between words
 }
-
 function updateScoreboard() {
   const playersUI = document.querySelectorAll(".player");
 
@@ -349,9 +341,6 @@ function guessLetter(letter) {
 }
 
 function nextPlayer() {
-  // FIX: Only add to player score if they're losing their turn (not winning)
-  // When winning, the score is added in checkWin() or solve handler
-  // So we only reset roundScore here and move to next player
   roundScore = 0;
 
   currentPlayer = (currentPlayer + 1) % player_count;
@@ -366,14 +355,17 @@ function nextPlayer() {
 }
 
 function checkWin() {
-  if (!displayWord.includes("_")) {
-    // FIX: Add round score to player's total
+  const won = displayWord.every((wordArr) => wordArr.every((ch) => ch !== "_"));
+
+  if (won) {
     playerScores[currentPlayer] += roundScore;
+
     alert(
-      `🎉 Player ${
-        currentPlayer + 1
-      } wins the round!\nWord: ${currentWord}\nRound earnings: $${roundScore}`
+      `🎉 Player ${currentPlayer + 1} wins the round!\n` +
+        `Word: ${currentWord}\n` +
+        `Round earnings: $${roundScore}`
     );
+
     startGame();
   }
 }
