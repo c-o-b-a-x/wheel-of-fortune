@@ -62,7 +62,7 @@ const labels = [
   "$650",
 ];
 
-let player_count = parseInt(prompt("how many people are playing:")) || 3;
+let player_count = parseInt(prompt("how many people are playing:"));
 
 const worddisplay = document.querySelector(".worddisplay");
 const categoryDisplay = document.querySelector(".category");
@@ -272,6 +272,8 @@ function generateLetterButtons() {
 }
 
 function enableConsonantButtons() {
+  if (vowels.includes(letter)) btn.disabled = true;
+
   const buttons = letterButtonsContainer.querySelectorAll(".guess-btn");
   buttons.forEach((btn) => {
     const letter = btn.textContent;
@@ -304,6 +306,10 @@ function handleGuessPress(letter, button) {
 }
 
 function guessLetter(letter) {
+  if (!lastSpinValue && !vowels.includes(letter)) {
+    alert("You must spin before guessing a consonant!");
+    return;
+  }
   if (guessedLetters.includes(letter)) return;
 
   guessedLetters.push(letter);
@@ -383,8 +389,9 @@ function create_player_ui(player_count) {
   }
 
   playerScores.length = player_count;
-  playerScores.fill(0);
 }
+displayWord = currentWord.split(" ").map((word) => word.split(""));
+updateWordDisplay();
 
 startGame();
 
