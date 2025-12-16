@@ -63,6 +63,7 @@ const labels = [
 ];
 
 let player_count = parseInt(prompt("how many people are playing:"));
+player_count = check_players(player_count);
 
 const worddisplay = document.querySelector(".worddisplay");
 const categoryDisplay = document.querySelector(".category");
@@ -175,7 +176,6 @@ if (solveButton) {
     if (!answer) return;
 
     if (answer.toUpperCase() === currentWord) {
-      // FIX: Add round score to player's total here
       playerScores[currentPlayer] += roundScore;
       alert(
         `🎉 Correct! Player ${
@@ -185,7 +185,6 @@ if (solveButton) {
       startGame();
     } else {
       alert("Wrong answer!");
-      // FIX: Don't add score when wrong, just reset and move to next player
       roundScore = 0;
       nextPlayer();
     }
@@ -242,7 +241,7 @@ function startGame() {
 function updateWordDisplay() {
   worddisplay.textContent = displayWord
     .map((wordArr) => wordArr.join(""))
-    .join("     "); // space between words
+    .join("     ");
 }
 function updateScoreboard() {
   const playersUI = document.querySelectorAll(".player");
@@ -395,7 +394,6 @@ updateWordDisplay();
 
 startGame();
 
-// ===== THEME MUSIC TOGGLE =====
 const themeAudio = document.getElementById("theme-audio");
 const musicToggle = document.getElementById("music-toggle");
 
@@ -415,3 +413,13 @@ musicToggle.addEventListener("click", () => {
 
   musicPlaying = !musicPlaying;
 });
+
+function check_players(player_count) {
+  while (!Number.isInteger(player_count) || player_count <= 0) {
+    player_count = parseInt(
+      prompt("Enter a valid number of players (1 or more):"),
+      10
+    );
+  }
+  return player_count;
+}
